@@ -10,7 +10,7 @@ OUTDIR <- "<path to directory to write output>"
 options(scipen=999)
 tt=NULL
 
-for(CHR in 1:22)
+for(CHR in c(1:22, "X"))
 {
 
 OUTPREFIX="<my_Output_prefix"
