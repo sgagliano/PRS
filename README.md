@@ -1,11 +1,11 @@
 # InPSYght-PRS
 
-Workflow
+**Workflow**
 
 A. Prepare genetic data for RFMix
-1. RemoveMultiAllelic.sh #preprocess VCFs
-2. PhasePrepScript.R #prepare script for phasing
-3. Phase_tt.sh #output from PhasePrepScript.R for phasing
+1. `RemoveMultiAllelic.sh` #preprocess VCFs
+2. `PhasePrepScript.R` #prepare script for phasing
+3. `Phase_tt.sh` #output from `PhasePrepScript.R` for phasing
 
 B. Run RFMix
 
