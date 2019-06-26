@@ -1,9 +1,9 @@
 #DESCRIPTION
 #This script prepares a bash script with the list of eagle phasing jobs
 
-DIR <- "<directory where the bcfs to be phased are located>"
-INPUT <- "<directory where the genetic map is located>"
-LOGS <- "<../logs>"
+DIR <- "<path to directory where the bcfs, split by chromosome, to be phased are located>"
+INPUT <- "<path to directory where the genetic map is located, hg38 here>"
+LOGS <- "<path to directory to write out logs>"
 EAGLE <- "<path to eagle executable>"
 
 options(scipen=999)
