@@ -5,7 +5,7 @@
 A. Prepare genetic data for RFMix
 1. `RemoveMultiAllelic.sh` #preprocess VCFs
 2. `PhasePrepScript.R` #prepare script for phasing
-3. `Phase_tt.sh` #output from `PhasePrepScript.R` for phasing
+3. `Phase_tt.sh` #output from `PhasePrepScript.R` for phasing, can use `Commands2Array.py` to submit these tasks as an array on a cluster
 
 B. Run RFMix
 
