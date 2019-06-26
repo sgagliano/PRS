@@ -1,3 +1,7 @@
+##DESCRIPTION
+#Processing to remove multi-allelic variants and duplicate variants before running Eagle (i.e. to phase). 
+#The following adapts a pipeline for 1000G (by Giulio Genovese) that normalizes variants using the version of the GRCh38 fasta reference
+#Reference: https://data.broadinstitute.org/alkesgroup/Eagle/#x1-320005.3.2
 
 #get GRCh38 fasta reference
 #wget -O- ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz | \
@@ -5,7 +9,7 @@
 #samtools faidx GCA_000001405.15_GRCh38_no_alt_analysis_set.fna
 
 dir= <path to directory with the VCFs>
-input- <path to GCA_000001405.15_GRCh38_no_alt_analysis_set.fna>
+input= <path to GCA_000001405.15_GRCh38_no_alt_analysis_set.fna>
 output= <path to directory where you want the processed bcfs to be outputted>
 
 for chr in {1..22} X; do
