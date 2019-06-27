@@ -1,6 +1,7 @@
 ##DESCRIPTION
 #Processing to remove multi-allelic variants and duplicate variants before running Eagle (i.e. to phase). 
 #The following adapts a pipeline for 1000G (by Giulio Genovese) that normalizes variants using the version of the GRCh38 fasta reference
+#I've added a line to remove monomorphic variants
 #Reference: https://data.broadinstitute.org/alkesgroup/Eagle/#x1-320005.3.2
 
 #get GRCh38 fasta reference
