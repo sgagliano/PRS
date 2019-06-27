@@ -1,3 +1,6 @@
+#DESCRIPTION
+#Convert summary statistics (with rsID) on b37 to b38
+
 #download human genome b38 VCF from dbSNP
 wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/All_20180418.vcf.gz
 
