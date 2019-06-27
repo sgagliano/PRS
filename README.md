@@ -12,4 +12,4 @@ B. Run RFMix
 C. Determine which variants to include in PRS via published GWAS summary statistics
 
 D. Compute PRS in genetic data
-1. Make sure the build for the summary statistics matches that of the genetic data. If not, convert the summary statistics build. `ConvertSummaryStats2b38.sh`
+1. `ConvertSummaryStats2b38.sh` #Make sure build for summary statistics & genetic data match. If not, convert summary statistics build. 
