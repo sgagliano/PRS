@@ -13,3 +13,4 @@ C. Determine which variants to include in PRS via published GWAS summary statist
 
 D. Compute PRS in genetic data
 1. `ConvertSummaryStats2b38.sh` #if build for summary statistics & genetic data don't match convert summary statistics build
+2. `ConvertVCFtoPLINK.sh` #if PLINK format rather than VCF/BCF is needed
