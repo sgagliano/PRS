@@ -14,7 +14,7 @@ LC_ALL=C; export LC_ALL
 
 #sort summary stats (b37) and the dbSNP (b38) by rsID
 sort -k2 ${SUMSTATS}.sumstats > ${SUMSTATS}.sumstats-sortbyrs
-sort -k3 input/dbSNP-5cols.txt > dbSNP-5cols.txt-sortbyrs
+sort -k3 dbSNP-5cols.txt > dbSNP-5cols.txt-sortbyrs
 
 #join the sorted fies by rs
 join -1 2 -2 ${COL} ${SUMSTATS}.sumstats-sortbyrs dbSNP-5cols.txt-sortbyrs | sort | uniq > ${SUMSTATS}_dbSNPmerge.sumstats
@@ -25,4 +25,4 @@ mv ${SUMSTATS}s_dbSNPmerge.sumstats-header ${SUMSTATS}_dbSNPmerge.sumstats
 
 #remove intermediate files
 rm dbSNP-5cols.txt-sortbyrs
-rm ${SUMSTATS}_dbSNPmerge.sumstats
+rm ${SUMSTATS}.sumstats-sortbyrs
