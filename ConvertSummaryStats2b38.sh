@@ -1,8 +1,8 @@
-SUMSTATS=$1 #prefix for summary statistics file, assumes sumstats file ends with .sumstats suffix
+SUMSTATS=$1 #prefix for summary statistics file on b37, assumes sumstats file ends with .sumstats suffix
 COL=$2 #column number with rsIDs in summary statistics file
 
 #DESCRIPTION
-#Convert summary statistics (with rsID) on b37 to b38
+#Convert summary statistics (with rsID) on b37 to b38 by matching rsID from dbSNP
 
 #download human genome b38 VCF from dbSNP
 wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/All_20180418.vcf.gz
