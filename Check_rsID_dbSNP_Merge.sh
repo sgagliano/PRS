@@ -1,7 +1,7 @@
 #DESCRIPTION
-#1. Identify rsIDs that have differing chromsomes in the summary statistics (b37) and dbSNP (b38) in the output of Merge_rsID_dbSNP.sh (e.g. myfile_dbSNPmerge.sumstats); 
+#1. Identify rsIDs that have differing chromsomes in the summary statistics (b37) and dbSNP (b38) in the output of ConvertSummaryStats2b38.sh (e.g. myfile_dbSNPmerge.sumstats); 
 #assumes rsID is in the first column; prints out these rsIDs to mismatch_rsID.txt
-#2. Remove these rsIDs from the output of Merge_rsID_dbSNP.sh (e.g. myfile_dbSNPmerge.sumstats)
+#2. Remove these rsIDs from the output of ConvertSummaryStats2b38.sh (e.g. myfile_dbSNPmerge.sumstats)
 #prints out the new file to myfile_dbSNPmerge.sumstats-clean
 
 #Arguments
