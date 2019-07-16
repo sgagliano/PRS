@@ -17,7 +17,7 @@ Rscript PRSice_linux/PRSice.R \
 -b ${sumstats} \
 --stat OR --pval P --A1 A1 --A2 A2 --snp ids --chr dbSNP_CHR_b38 --bp dbSNP_BP_b38 \ #replace with appropriate column names from sumstats
 --prsice PRSice_linux/PRSice_linux \
---target geno-chr# --type bed \
+--target geno-chr# --type bed \ #finds geno-chr1, geno-chr22; doesn't use chrX
 --pheno-file MyPhenoFile.txt \ #file has sample IDs and the phenotype of interest
 --cov-file MyCovariateFile.txt \ #file has sample IDs and the covariates (if both pheno and covariates are in same file, refer to that file here and line above)
 --pheno-col Pheno \ #replace with column header for phenotype column in MyPhenoFile.txt
