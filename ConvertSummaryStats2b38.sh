@@ -13,7 +13,7 @@ gzip -dc All_20180418.vcf.gz | grep -v "^#" | cut -f 1-5 > dbSNP-5cols.txt
 LC_ALL=C; export LC_ALL
 
 #sort summary stats (b37) and the dbSNP (b38) by rsID
-sort -k2 ${SUMSTATS}.sumstats > ${SUMSTATS}.sumstats-sortbyrs
+sort -k${COL} ${SUMSTATS}.sumstats > ${SUMSTATS}.sumstats-sortbyrs
 sort -k3 dbSNP-5cols.txt > dbSNP-5cols.txt-sortbyrs
 
 #join the sorted fies by rs
