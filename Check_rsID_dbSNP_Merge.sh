@@ -14,6 +14,9 @@ COLb=$3 #e.g. 14; column number for dbSNP chr from merged file
 cut -d " " -f ${COLa} ${INPUT} >  chrA
 cut -d " " -f ${COLb} ${INPUT} >  chrB
 
+#remove chr prefix if present from sumstats chr column
+sed -i 's/chr//' chrA
+
 diff chrA chrB | grep -v ">" | grep -v "<" | grep -v "-" | cut -d "c" -f 1 > mismatched_lines.txt
 
 while read i; do
