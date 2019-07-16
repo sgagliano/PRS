@@ -10,9 +10,11 @@ A. Prepare genetic data for RFMix
 B. Run RFMix
 1. ...
 
-C. Determine which variants to include in PRS via published GWAS summary statistics
+C. Convert GWAS summary statistics to b38 (using rsID)
 1. `ConvertSummaryStats2b38.sh` #if build for summary stats is on b37 & genetic data is on b38, convert summary stats via dbSNP rsID to b38
 2. `Check_rsID_dbSNP_Merge.sh` #check that output of `Merge_rsID_dbSNP` aligns by chromosome, and remove mismatched rsIDs
+3. `Add_dbSNP_id.sh` #Add chr:bp:ref:alt id (in b38 coordinates) to the summary stats, assuming target data for PRS uses those ids too
 
 D. Compute PRS in genetic data
 1. `ConvertVCFtoPLINK.sh` #if PLINK format rather than VCF/BCF is needed
+2. `PRS.sh` #Use PrSice to compute PRS from base (summary statistics) in b38 target (raw data)
