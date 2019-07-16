@@ -16,7 +16,7 @@ echo ids > ../output/newcolhead
 tail -n+2 ../output/${prefix}_dbSNPmerge.sumstats-clean_ids  > ../output/${prefix}_dbSNPmerge.sumstats-clean_ids-nohead
 paste ../output/newcolhead ../output/${prefix}_dbSNPmerge.sumstats-clean_ids-nohead > ../output/${prefix}_dbSNPmerge.sumstats-clean_ids 
 #change delimiter to space
-perl -p -i -e 's/\t/ /g' ../output/${prefix}_dbSNPmerge.sumstats-clean_ids 
+perl -p -i -e 's/ /:/g' ../output/${prefix}_dbSNPmerge.sumstats-clean_ids 
 
 #remove intermediate files
 rm ../output/newcolhead
