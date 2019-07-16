@@ -4,8 +4,6 @@ ref=$3 #col num for dbSNP ref allele
 alt=$4 #col num for dbSNP alt allele
 prefix=$5 #space-delimited output file (prefix only) from Check_rsID_dbSNP_Merge.sh; e.g. script will add _dbSNPmerge.sumstats-clean suffix
 
-LC_ALL=C; export LC_ALL
-
 #extract dbSNP columns; assumes file is tab-delimited
 cut -d " " -f ${chr},${bp},${ref},${alt}  ../output/${prefix}_dbSNPmerge.sumstats-clean  > ../output/${prefix}_dbSNPmerge.sumstats-clean_ids 
 #add chr prefix to agree with raw data b38 notation
@@ -15,8 +13,12 @@ touch ../output/newcolhead
 echo ids > ../output/newcolhead
 tail -n+2 ../output/${prefix}_dbSNPmerge.sumstats-clean_ids  > ../output/${prefix}_dbSNPmerge.sumstats-clean_ids-nohead
 paste ../output/newcolhead ../output/${prefix}_dbSNPmerge.sumstats-clean_ids-nohead > ../output/${prefix}_dbSNPmerge.sumstats-clean_ids 
-#change delimiter to space
+#change delimiter to :
 perl -p -i -e 's/ /:/g' ../output/${prefix}_dbSNPmerge.sumstats-clean_ids 
+#merge this new id column with other columns
+paste ../output/${prefix}_dbSNPmerge.sumstats-clean_ids ../output/${prefix}_dbSNPmerge.sumstats-clean > ../output/${prefix}_dbSNPmerge.sumstats-final
+perl -p -i -e 's/\t/ /g' ../output/${prefix}_dbSNPmerge.sumstats-final
+mv ../output/${prefix}_dbSNPmerge.sumstats-final ../output/${prefix}_dbSNPmerge.sumstats-clean_ids 
 
 #remove intermediate files
 rm ../output/newcolhead
