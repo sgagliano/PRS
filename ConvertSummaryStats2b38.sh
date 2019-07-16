@@ -17,7 +17,7 @@ sort -k${COL} ${SUMSTATS}.sumstats > ${SUMSTATS}.sumstats-sortbyrs
 sort -k3 dbSNP-5cols.txt > dbSNP-5cols.txt-sortbyrs
 
 #join the sorted fies by rs
-join -1 2 -2 ${COL} ${SUMSTATS}.sumstats-sortbyrs dbSNP-5cols.txt-sortbyrs | sort | uniq > ${SUMSTATS}_dbSNPmerge.sumstats
+join -1 ${COL} -2 3 ${SUMSTATS}.sumstats-sortbyrs dbSNP-5cols.txt-sortbyrs | sort | uniq > ${SUMSTATS}_dbSNPmerge.sumstats
 
 #create text file, header, with the appropriate header
 cat header ${SUMSTATS}_dbSNPmerge.sumstats > ${SUMSTATS}_dbSNPmerge.sumstats-header
