@@ -22,5 +22,6 @@ bcftools view --samples-file ${SAMPLES} --force-samples chr${CHR}.InputData-PASS
     --const-fid \
     --allow-extra-chr 0 \
     --split-x b38 no-fail \
+    -- geno 0.05 \
     --make-bed \
-    --out output/chr${CHR}
+    --out output/geno-chr${CHR}
