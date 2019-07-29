@@ -11,8 +11,9 @@ B. Prepare reference genetic
 1. `1000G_prep.sh` #prepare 1000G b38 VCFs by adding chr prefix (be sure to tabix the output too)
 2. `1000G-ConvertVCFtoPLINK.sh` #convert 1000G VCFs to PLINK 
 
-C. Run RFMix
-1. ...
+C. Run Admixture
+1. `prep4admixture.sh` #merge 1000G and own genetic data together
+2. `admixture.sh` #run admixture
 
 D. Convert GWAS summary statistics to b38 (using rsID)
 1. `ConvertSummaryStats2b38.sh` #if build for summary stats is on b37 & genetic data is on b38, convert summary stats via dbSNP rsID to b38
