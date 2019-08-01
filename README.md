@@ -1,5 +1,7 @@
 # InPSYght-PRS
 
+***Work in Progress***
+
 **Workflow**
 
 A. Prepare genetic data
@@ -11,7 +13,7 @@ B. Prepare reference genetic
 1. `1000G_prep.sh` #prepare 1000G b38 VCFs by adding chr prefix (be sure to tabix the output too)
 2. `1000G-ConvertVCFtoPLINK.sh` #convert 1000G VCFs to PLINK 
 
-C. Run Admixture
+C. Run Admixture  
 1. `prep4admixture.sh` #merge 1000G and own genetic data together
 2. `admixture.sh` #run admixture
 
