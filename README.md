@@ -25,3 +25,4 @@ D. Convert GWAS summary statistics to b38 (using rsID)
 E. Compute PRS in genetic data
 1. `ConvertVCFtoPLINK.sh` #if PLINK format rather than VCF/BCF is needed
 2. `PRS.sh` #Use PrSice to compute PRS from base (summary statistics) in b38 target (raw data)
+3. `lassosum.sh` #use lassosum to compute PRS from base (summary statistics) in b38 target (raw data)
