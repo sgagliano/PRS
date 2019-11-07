@@ -28,4 +28,4 @@ E. Compute PRS in genetic data
 3. `lassosum.sh` #use lassosum to compute PRS from base (summary statistics) in b38 target (raw data)
 
 F. Visualize Results
-See `Plotting` folder.
+<p>See `Plotting` folder</p>
