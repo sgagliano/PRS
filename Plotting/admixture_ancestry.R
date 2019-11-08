@@ -1,3 +1,7 @@
+##Description: visualize global ancestry components 
+#input: tab-delimited ADMIXTURE output file, where IID has been added as the first row, and also a header has been added
+#output: `ancestry_component.png`
+
 library(ggplot2)
 library(RColorBrewer)
 br_pal <- brewer.pal(9, "Set1")
