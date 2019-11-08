@@ -1,4 +1,5 @@
-##Description: visualize global ancestry components 
+##Description: visualize global ancestry components
+#modified code from Jionming Wang
 #input: tab-delimited ADMIXTURE output file, where IID has been added as the first row, and also a header has been added
 #output: `ancestry_component.png`
 
