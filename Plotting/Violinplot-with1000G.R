@@ -1,10 +1,10 @@
-prs<-read.table("../output/1KG_InPSYght-AFREURsimilarMAF.splitvalidate.results.txt", as.is=T, h=T)
-pop<-read.table("1000g_inpsyght.txt", as.is=T, h=T)
-dat<-merge(prs, pop, by.x="IID", by.y="IID")
-
 library(devtools)
 suppressPackageStartupMessages(require(RColorBrewer))
 suppressPackageStartupMessages(require(ggplot2))
+
+prs<-read.table("1000G_study.splitvalidate.results.txt", as.is=T, h=T) #lassosum results run on 1000G+study pop'ns 
+pop<-read.table("1000g_inpsyght.txt", as.is=T, h=T) #Two column text file with headers IID and Group, listing sample id and corresponding category
+dat<-merge(prs, pop, by.x="IID", by.y="IID")
 
 data_summary <- function(x) {
    m <- mean(x)
