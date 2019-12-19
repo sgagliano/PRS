@@ -142,3 +142,49 @@ ggplot(data.frame(
   theme_bigstatsr() +
   geom_density(aes(Probability, fill = Phenotype), alpha = 0.3)
 dev.off()
+
+# Best C+T predictions
+#Instead of stacking, an alternative is to choose the best C+T score based on the computed grid.
+#This procedure is appealing when there are not enough individuals to learn the stacking weights.
+library(tidyverse)
+grid2 <- attr(all_keep, "grid") %>%
+  mutate(thr.lp = list(attr(multi_PRS, "grid.lpS.thr")), num = row_number()) %>%
+  unnest()
+## Warning: `cols` is now required.
+## Please use `cols = c(thr.lp)`
+s <- nrow(grid2)
+grid2$auc <- big_apply(multi_PRS, a.FUN = function(X, ind, s, y.train) {
+  # Sum over all chromosomes, for the same C+T parameters
+  single_PRS <- rowSums(X[, ind + s * (0:21)])                                 
+  bigstatsr::AUC(single_PRS, y.train)
+}, ind = 1:s, s = s, y.train = y[ind.train],
+a.combine = 'c', block.size = 1, ncores = NCORES)
+
+max_prs <- grid2 %>% arrange(desc(auc)) %>% slice(1:10) %>% print() %>% slice(1)
+## A tibble: 10 x 7
+#    size thr.r2 grp.num thr.imp thr.lp   num   auc
+#   <int>  <dbl>   <int>   <dbl>  <dbl> <int> <dbl>
+# 1  4000   0.05       1       1   3.68     7 0.503
+# 2  1000   0.05       1       1   3.68     5 0.503
+# 3 10000   0.01       1       1   3.68     2 0.502
+# 4 10000   0.05       1       1   3.68     8 0.502
+# 5 20000   0.01       1       1   3.68     3 0.502
+# 6  2000   0.05       1       1   3.68     6 0.502
+# 7 50000   0.01       1       1   3.68     4 0.502
+# 8 10000   0.01       1       1   3.30     2 0.502
+# 9  1000   0.05       1       1   3.30     5 0.501
+#10  4000   0.05       1       1   3.30     7 0.501
+
+ind.keep <- unlist(map(all_keep, max_prs$num))
+sum(lpval[ind.keep] > max_prs$thr.lp)
+## [1] 551
+
+AUCBoot(
+  snp_PRS(G, beta[ind.keep], ind.test = ind.test, ind.keep = ind.keep,
+          lpS.keep = lpval[ind.keep], thr.list = max_prs$thr.lp),
+  y[ind.test]
+)
+#      Mean       2.5%      97.5%         Sd
+#0.48373893 0.46205974 0.50535986 0.01094148
+
+  
