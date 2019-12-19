@@ -42,6 +42,7 @@ nrow(sumstats50)
 nrow(sumstats)
 #[1] 8666886
 sumstats<-sumstats50
+sumstats$beta<-log(sumstats$or) #convert to beta: ln(OR) because column info_snp$beta reports OR; R's log() function is ln()
 
 #We split genotype data using part of the data to learn parameters of stacking and another part of the data to evaluate statistical properties of polygenic risk score such as AUC. 
 #Here we consider that there are 4500 individuals in the training set.
