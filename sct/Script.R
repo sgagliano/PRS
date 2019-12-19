@@ -67,7 +67,7 @@ lpval <- -log10(info_snp$p)
 
 summary(info_snp$beta)
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-#-5.7236 -1.0095 -0.9949 -0.6414 -0.9708  1.5543
+#-1.744600 -0.012097  0.000000  0.000468  0.012204  3.299002
 
 #Limit the size of G to only SNPs in sumstats
 write.table(info_snp$ids, "../input/info_snp.ids", row.names=F, col.names=F, quote=F)
@@ -126,9 +126,9 @@ summary(final_mod$mod)
 ## A tibble: 3 x 6
 #   alpha validation_loss intercept beta           nb_var message  
 #   <dbl>           <dbl>     <dbl> <list>          <int> <list>   
-#1 0.0001           0.652     0.587 <dbl [25,984]>      0 <chr [4]>
-#2 0.01             0.652     0.587 <dbl [25,984]>      0 <chr [4]>
-#3 1                0.652     0.587 <dbl [25,984]>      0 <chr [4]>
+#1 0.0001           0.652     0.588 <dbl [25,984]>    314 <chr [4]>
+#2 0.01             0.652     0.594 <dbl [25,984]>    139 <chr [4]>
+#3 1                0.652     0.588 <dbl [25,984]>     79 <chr [4]>
 
 #From stacking C+T scores, derive a unique vector of weights and compare effects resulting from stacking to the initial regression coefficients provided as summary statistics
 new_beta <- final_mod$beta.G
@@ -149,7 +149,7 @@ pred <- final_mod$intercept +
   big_prodVec(G, new_beta[ind], ind.row = ind.test, ind.col = ind)
 AUCBoot(pred, y[ind.test])
 #        Mean         2.5%        97.5%           Sd 
-#0.5002674416 0.5000000000 0.5013440860 0.0003682165
+#0.49502213 0.47379262 0.51599180 0.01089022
 
 tiff("../output/Hist.tiff", width=6.5, height=4.5, unit="in", res=300)
 ggplot(data.frame(
@@ -180,20 +180,20 @@ max_prs <- grid2 %>% arrange(desc(auc)) %>% slice(1:10) %>% print() %>% slice(1)
 ## A tibble: 10 x 7
 #    size thr.r2 grp.num thr.imp thr.lp   num   auc
 #   <int>  <dbl>   <int>   <dbl>  <dbl> <int> <dbl>
-# 1  4000   0.05       1       1   3.68     7 0.503
-# 2  1000   0.05       1       1   3.68     5 0.503
-# 3 10000   0.01       1       1   3.68     2 0.502
-# 4 10000   0.05       1       1   3.68     8 0.502
-# 5 20000   0.01       1       1   3.68     3 0.502
-# 6  2000   0.05       1       1   3.68     6 0.502
-# 7 50000   0.01       1       1   3.68     4 0.502
-# 8 10000   0.01       1       1   3.30     2 0.502
-# 9  1000   0.05       1       1   3.30     5 0.501
-#10  4000   0.05       1       1   3.30     7 0.501
+#1   200   0.5        1       1   7.08    18 0.522
+# 2   100   0.5        1       1   7.08    17 0.522
+# 3   400   0.5        1       1   7.08    19 0.522
+# 4  1000   0.5        1       1   7.08    20 0.521
+# 5  2000   0.05       1       1   7.08     6 0.521
+# 6  4000   0.05       1       1   7.08     7 0.521
+# 7 10000   0.05       1       1   7.08     8 0.521
+# 8   250   0.2        1       1   7.08    13 0.521
+# 9   500   0.1        1       1   7.08     9 0.520
+#10  1000   0.05       1       1   7.08     5 0.519
 
 ind.keep <- unlist(map(all_keep, max_prs$num))
 sum(lpval[ind.keep] > max_prs$thr.lp)
-## [1] 551
+## [1] 88
 
 AUCBoot(
   snp_PRS(G, beta[ind.keep], ind.test = ind.test, ind.keep = ind.keep,
@@ -201,6 +201,6 @@ AUCBoot(
   y[ind.test]
 )
 #      Mean       2.5%      97.5%         Sd
-#0.48373893 0.46205974 0.50535986 0.01094148
+#0.50766627 0.48604364 0.52897879 0.01090926 
 
   
