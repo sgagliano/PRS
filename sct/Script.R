@@ -32,6 +32,17 @@ big_counts(G, ind.col = 1:10)
 sumstats <- bigreadr::fread2("/net/inpsyght/disk2/sarahgag/PRS/summarystats/output/BDSCZvsCONT_dbSNPmerge.sumstats-clean_ids")
 str(sumstats)
 
+#OR column in sumstats contains wacky values; subset them out
+summary(sumstats$OR)
+#      Min.    1st Qu.     Median       Mean    3rd Qu.       Max.
+# 0.000e+00  1.000e+00  1.000e+00 6.243e+147  1.000e+00 5.411e+154
+sumstats50<-subset(sumstats, sumstats$OR<50)
+nrow(sumstats50)
+#[1] 8666861
+nrow(sumstats)
+#[1] 8666886
+sumstats<-sumstats50
+
 #We split genotype data using part of the data to learn parameters of stacking and another part of the data to evaluate statistical properties of polygenic risk score such as AUC. 
 #Here we consider that there are 4500 individuals in the training set.
 set.seed(1)
@@ -44,8 +55,8 @@ names(sumstats) <- c("ids", "SNP", "oldchr", "oldbp", "oldA1", "oldA2", "FreqA",
 map <- obj.bigSNP$map[,-(2:3)]
 names(map) <- c("chr", "pos", "a0", "a1")
 info_snp <- snp_match(sumstats, map)
-#8,666,886 variants to be matched.
-#942,558 ambiguous SNPs have been removed.
+#8,666,861 variants to be matched.
+#942,555 ambiguous SNPs have been removed.
 #99,300 variants have been matched; 0 were flipped and 81,407 were reversed.
 #since none were flipped, use strand_flip = FALSE
 info_snp <- snp_match(sumstats, map, strand_flip = FALSE)
