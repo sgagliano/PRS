@@ -100,7 +100,7 @@ str(obj.bigSNP, max.level = 2, strict.width = "cut")
 G   <- obj.bigSNP$genotypes
 CHR <- obj.bigSNP$map$chromosome
 POS <- obj.bigSNP$map$physical.pos
-y   <- obj.bigSNP$fam$affection - 1
+y   <- obj.bigSNP$fam$affection
 NCORES <- nb_cores()
 # Check some counts for the 10 first variants
 big_counts(G, ind.col = 1:10)
