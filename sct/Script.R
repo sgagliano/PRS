@@ -53,6 +53,10 @@ info_snp <- snp_match(sumstats, map, strand_flip = FALSE)
 beta <- info_snp$beta
 lpval <- -log10(info_snp$p)
 
+summary(info_snp$beta)
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+#-5.7236 -1.0095 -0.9949 -0.6414 -0.9708  1.5543
+
 #Limit the size of G to only SNPs in sumstats
 write.table(info_snp$ids, "../input/info_snp.ids", row.names=F, col.names=F, quote=F)
 
