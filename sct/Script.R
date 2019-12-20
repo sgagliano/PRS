@@ -36,13 +36,16 @@ str(sumstats)
 summary(sumstats$OR)
 #      Min.    1st Qu.     Median       Mean    3rd Qu.       Max.
 # 0.000e+00  1.000e+00  1.000e+00 6.243e+147  1.000e+00 5.411e+154
-sumstats50<-subset(sumstats, sumstats$OR<50)
-nrow(sumstats50)
-#[1] 8666861
+sumstats5<-subset(sumstats, sumstats$OR<5)
+nrow(sumstats5)
+#[1] 8666514
 nrow(sumstats)
 #[1] 8666886
-sumstats<-sumstats50
+sumstats<-sumstats5
 sumstats$beta<-log(sumstats$or) #convert to beta: ln(OR) because column info_snp$beta reports OR; R's log() function is ln()
+summary(sumstats$beta)
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#0.00033 0.98629 1.00000 1.00068 1.01369 4.9938
 
 #We split genotype data using part of the data to learn parameters of stacking and another part of the data to evaluate statistical properties of polygenic risk score such as AUC. 
 #Here we consider that there are 4500 individuals in the training set.
@@ -56,9 +59,9 @@ names(sumstats) <- c("ids", "SNP", "oldchr", "oldbp", "oldA1", "oldA2", "FreqA",
 map <- obj.bigSNP$map[,-(2:3)]
 names(map) <- c("chr", "pos", "a0", "a1")
 info_snp <- snp_match(sumstats, map)
-#8,666,861 variants to be matched.
-#942,555 ambiguous SNPs have been removed.
-#99,300 variants have been matched; 0 were flipped and 81,407 were reversed.
+#8,666,514 variants to be matched.
+#942,498 ambiguous SNPs have been removed.
+#99,298 variants have been matched; 0 were flipped and 81,405 were reversed.
 #since none were flipped, use strand_flip = FALSE
 info_snp <- snp_match(sumstats, map, strand_flip = FALSE)
 #114,531 variants have been matched; 0 were flipped and 93,972 were reversed.
@@ -67,7 +70,7 @@ lpval <- -log10(info_snp$p)
 
 summary(info_snp$beta)
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-#-1.744600 -0.012097  0.000000  0.000468  0.012204  3.299002
+#-4.7564 -1.0095 -0.9949 -0.6413 -0.9708  1.5543
 
 #Limit the size of G to only SNPs in sumstats
 write.table(info_snp$ids, "../input/info_snp.ids", row.names=F, col.names=F, quote=F)
@@ -126,9 +129,9 @@ summary(final_mod$mod)
 ## A tibble: 3 x 6
 #   alpha validation_loss intercept beta           nb_var message  
 #   <dbl>           <dbl>     <dbl> <list>          <int> <list>   
-#1 0.0001           0.652     0.588 <dbl [25,984]>    314 <chr [4]>
-#2 0.01             0.652     0.594 <dbl [25,984]>    139 <chr [4]>
-#3 1                0.652     0.588 <dbl [25,984]>     79 <chr [4]>
+#1 0.0001           0.652    -0.100 <dbl [25,984]>   4626 <chr [4]>
+#2 0.01             0.652    -0.106 <dbl [25,984]>    467 <chr [4]>
+#3 1                0.652    -0.159 <dbl [25,984]>     94 <chr [4]>
 
 #From stacking C+T scores, derive a unique vector of weights and compare effects resulting from stacking to the initial regression coefficients provided as summary statistics
 new_beta <- final_mod$beta.G
@@ -149,7 +152,7 @@ pred <- final_mod$intercept +
   big_prodVec(G, new_beta[ind], ind.row = ind.test, ind.col = ind)
 AUCBoot(pred, y[ind.test])
 #        Mean         2.5%        97.5%           Sd 
-#0.49502213 0.47379262 0.51599180 0.01089022
+#0.50418523 0.48251361 0.52536604 0.01088745
 
 tiff("../output/Hist.tiff", width=6.5, height=4.5, unit="in", res=300)
 ggplot(data.frame(
@@ -180,16 +183,16 @@ max_prs <- grid2 %>% arrange(desc(auc)) %>% slice(1:10) %>% print() %>% slice(1)
 ## A tibble: 10 x 7
 #    size thr.r2 grp.num thr.imp thr.lp   num   auc
 #   <int>  <dbl>   <int>   <dbl>  <dbl> <int> <dbl>
-#1   200   0.5        1       1   7.08    18 0.522
-# 2   100   0.5        1       1   7.08    17 0.522
-# 3   400   0.5        1       1   7.08    19 0.522
-# 4  1000   0.5        1       1   7.08    20 0.521
-# 5  2000   0.05       1       1   7.08     6 0.521
-# 6  4000   0.05       1       1   7.08     7 0.521
-# 7 10000   0.05       1       1   7.08     8 0.521
-# 8   250   0.2        1       1   7.08    13 0.521
-# 9   500   0.1        1       1   7.08     9 0.520
-#10  1000   0.05       1       1   7.08     5 0.519
+# 1  4000   0.05       1       1   3.68     7 0.503
+# 2  1000   0.05       1       1   3.68     5 0.503
+# 3 10000   0.01       1       1   3.68     2 0.502
+# 4 10000   0.05       1       1   3.68     8 0.502
+# 5 20000   0.01       1       1   3.68     3 0.502
+# 6  2000   0.05       1       1   3.68     6 0.502
+# 7 50000   0.01       1       1   3.68     4 0.502
+# 8 10000   0.01       1       1   3.30     2 0.502
+# 9  1000   0.05       1       1   3.30     5 0.501
+# 10  4000   0.05       1       1   3.30     7 0.501
 
 ind.keep <- unlist(map(all_keep, max_prs$num))
 sum(lpval[ind.keep] > max_prs$thr.lp)
@@ -201,6 +204,6 @@ AUCBoot(
   y[ind.test]
 )
 #      Mean       2.5%      97.5%         Sd
-#0.50766627 0.48604364 0.52897879 0.01090926 
+#0.48388841 0.46279202 0.50536798 0.01086284 
 
   
