@@ -36,16 +36,16 @@ str(sumstats)
 summary(sumstats$OR)
 #      Min.    1st Qu.     Median       Mean    3rd Qu.       Max.
 # 0.000e+00  1.000e+00  1.000e+00 6.243e+147  1.000e+00 5.411e+154
-sumstats5<-subset(sumstats, sumstats$OR<5)
-nrow(sumstats5)
-#[1] 8666514
+sumstats2<-subset(sumstats, sumstats$OR<2)
+nrow(sumstats2)
+#[1] 8663206
 nrow(sumstats)
 #[1] 8666886
-sumstats<-sumstats5
-sumstats$beta<-log(sumstats$or) #convert to beta: ln(OR) because column info_snp$beta reports OR; R's log() function is ln()
+sumstats<-sumstats2
+sumstats$beta<-log(sumstats$OR) #convert to beta: ln(OR) because column info_snp$beta reports OR; R's log() function is ln()
 summary(sumstats$beta)
 #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#0.00033 0.98629 1.00000 1.00068 1.01369 4.9938
+#-8.016418 -0.013805 -0.000100 -0.001108  0.013597  0.69290
 
 #We split genotype data using part of the data to learn parameters of stacking and another part of the data to evaluate statistical properties of polygenic risk score such as AUC. 
 #Here we consider that there are 4500 individuals in the training set.
@@ -59,18 +59,18 @@ names(sumstats) <- c("ids", "SNP", "oldchr", "oldbp", "oldA1", "oldA2", "FreqA",
 map <- obj.bigSNP$map[,-(2:3)]
 names(map) <- c("chr", "pos", "a0", "a1")
 info_snp <- snp_match(sumstats, map)
-#8,666,514 variants to be matched.
-#942,498 ambiguous SNPs have been removed.
-#99,298 variants have been matched; 0 were flipped and 81,405 were reversed.
+#8,663,206 variants to be matched.
+#942,062 ambiguous SNPs have been removed.
+#99,282 variants have been matched; 0 were flipped and 81,405 were reversed.
 #since none were flipped, use strand_flip = FALSE
 info_snp <- snp_match(sumstats, map, strand_flip = FALSE)
-#114,531 variants have been matched; 0 were flipped and 93,972 were reversed.
+#114,508 variants have been matched; 0 were flipped and 93,972 were reversed.
 beta <- info_snp$beta
 lpval <- -log10(info_snp$p)
 
 summary(info_snp$beta)
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-#-4.7564 -1.0095 -0.9949 -0.6413 -0.9708  1.5543
+#-1.9453 -1.0095 -0.9949 -0.6409 -0.9708  1.5543
 
 #Limit the size of G to only SNPs in sumstats
 write.table(info_snp$ids, "../input/info_snp.ids", row.names=F, col.names=F, quote=F)
@@ -129,9 +129,9 @@ summary(final_mod$mod)
 ## A tibble: 3 x 6
 #   alpha validation_loss intercept beta           nb_var message  
 #   <dbl>           <dbl>     <dbl> <list>          <int> <list>   
-#1 0.0001           0.652    -0.100 <dbl [25,984]>   4626 <chr [4]>
-#2 0.01             0.652    -0.106 <dbl [25,984]>    467 <chr [4]>
-#3 1                0.652    -0.159 <dbl [25,984]>     94 <chr [4]>
+#1 0.0001           0.652   -0.0869 <dbl [25,984]>   4601 <chr [4]>
+#2 0.01             0.652   -0.113  <dbl [25,984]>    471 <chr [4]>
+#3 1                0.652   -0.0506 <dbl [25,984]>    114 <chr [4]>
 
 #From stacking C+T scores, derive a unique vector of weights and compare effects resulting from stacking to the initial regression coefficients provided as summary statistics
 new_beta <- final_mod$beta.G
@@ -152,7 +152,7 @@ pred <- final_mod$intercept +
   big_prodVec(G, new_beta[ind], ind.row = ind.test, ind.col = ind)
 AUCBoot(pred, y[ind.test])
 #        Mean         2.5%        97.5%           Sd 
-#0.50418523 0.48251361 0.52536604 0.01088745
+#0.50429828 0.48229200 0.52605929 0.01097207
 
 tiff("../output/Hist.tiff", width=6.5, height=4.5, unit="in", res=300)
 ggplot(data.frame(
@@ -192,7 +192,7 @@ max_prs <- grid2 %>% arrange(desc(auc)) %>% slice(1:10) %>% print() %>% slice(1)
 # 7 50000   0.01       1       1   3.68     4 0.502
 # 8 10000   0.01       1       1   3.30     2 0.502
 # 9  1000   0.05       1       1   3.30     5 0.501
-# 10  4000   0.05       1       1   3.30     7 0.501
+#10  4000   0.05       1       1   3.30     7 0.501
 
 ind.keep <- unlist(map(all_keep, max_prs$num))
 sum(lpval[ind.keep] > max_prs$thr.lp)
