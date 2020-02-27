@@ -21,4 +21,4 @@ lassosum --data ${sumstats} \
         --test.bfile targetdataplinkprefix \
         --LDblocks EUR.hg38 --pheno pheno.txt --covar covar.txt \ #first file has FID, IID and pheno; second has FID, IID and covariates
         --ref refplinkprefix \
-        --splitvalidate --nthreads 2 --out ${output}
+        --splitvalidate --nthreads 2 --out ${output} >& lassosum.log
