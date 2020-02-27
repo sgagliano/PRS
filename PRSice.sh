@@ -25,4 +25,4 @@ Rscript PRSice_linux/PRSice.R \
 --print-snp \ 
 --binary-target T --ignore-fid \
 --perm 10000 \
---out ${output}
+--out ${output} >& prsice.log
