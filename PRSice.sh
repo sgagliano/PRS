@@ -26,3 +26,12 @@ Rscript PRSice_linux/PRSice.R \
 --binary-target T --ignore-fid \
 --perm 10000 \
 --out ${output} >& prsice.log
+
+#additional options
+#--clump-kb 250 \
+#--clump-p 1.000000 \
+#--clump-r2 0.100000 \
+#--x-range chr6:25000000-26463574,chr6:26463576-35000000 \
+#--bar-levels 0.00000005,0.000005,0.0001,0.001,0.01,0.05,0.1,0.2,0.5,1 \
+#--prevalence 0.01 \
+#--model add \
