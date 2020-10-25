@@ -32,4 +32,4 @@ F. Assess model performance
 1. `ModelFit.R`
 
 G. Visualize Results
-See `Plotting` folder
+1. See `Plotting` folder
