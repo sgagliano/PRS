@@ -29,7 +29,7 @@ E. Compute PRS in genetic data
 4. `plink-score.sh` #use PLINK --score flag to compute PRS from pre-selected list of variants + weights
 
 F. Assess model performance
-1. ModelFit.R
+1. `ModelFit.R`
 
 G. Visualize Results
-<p>See `Plotting` folder</p>
+See `Plotting` folder
