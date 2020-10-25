@@ -1,8 +1,6 @@
-# InPSYght-PRS
-
 ***Work in Progress***
 
-**Workflow**
+**PRS Workflow**
 
 A. Prepare genetic data
 1. `RemoveMultiAllelic.sh` #preprocess VCFs
