@@ -26,6 +26,10 @@ E. Compute PRS in genetic data
 1. `ConvertVCFtoPLINK.sh` #if PLINK format rather than VCF/BCF is needed
 2. `PRSice.sh` #Use PRSice to compute PRS from base (summary statistics) in b38 target (raw data)
 3. `lassosum.sh` #use lassosum to compute PRS from base (summary statistics) in b38 target (raw data)
+4. `plink-score.sh` #use PLINK --score flag to compute PRS from pre-selected list of variants + weights
 
-F. Visualize Results
+F. Assess model performance
+1. ModelFit.R
+
+G. Visualize Results
 <p>See `Plotting` folder</p>
