@@ -3,16 +3,16 @@
 
 suppressPackageStartupMessages(require(ggplot2))
 
-y<-read.table("../output/noref_inpsyght.splitvalidate.results.txt", as.is=T,h=T) #lassosum output
+y<-read.table("../output/noref_inpsyght.splitvalidate.results.txt", as.is=T,h=T) #PRS output
 x<-read.table("../../prs/input/InPSYghtcasectrl-withSexWave.txt", as.is=T, h=T) #phenotype fle
 data<-merge(x, y, by.x="IID", by.y="IID")
 subset=data
-grs_col=8
-pheno_col=3
+grs_col=8 #give column number for PRS column in data dataframe
+pheno_col=3 #give column number for Phenotype column in data dataframe
 GRS_col=grs_col
 prev_col=pheno_col
 df=subset
-qtile=10
+qtile=10 #number of quantiles
 
 
     if (!sum(unique(df[[prev_col]])==c(0,1))==2) {
