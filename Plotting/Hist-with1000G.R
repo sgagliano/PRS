@@ -2,7 +2,7 @@ library(devtools)
 suppressPackageStartupMessages(require(RColorBrewer))
 suppressPackageStartupMessages(require(ggplot2))
 
-prs<-read.table("1000G_study.splitvalidate.results.txt", as.is=T, h=T) #lassosum results run on 1000G+study pop'ns 
+prs<-read.table("1000G_study.splitvalidate.results.txt", as.is=T, h=T) #PRS results
 pop<-read.table("1000g_inpsyght.txt", as.is=T, h=T) #Two column text file with headers IID and Group, listing sample id and corresponding category
 dat<-merge(prs, pop, by.x="IID", by.y="IID")
 
@@ -17,5 +17,5 @@ plot_multi_histogram <- function(df, feature, label_column, xlab) {
 }
 tiff("Hist.tiff", width=6.5, height=4.5, unit="in", res=300)
 options(repr.plot.width = 20, repr.plot.height = 8)
-plot_multi_histogram(dat, 'best.pgs', 'Group', 'PRS')
+plot_multi_histogram(dat, 'best.pgs', 'Group', 'PRS') #In `dat` dataframe: best.pgs=give column header for PRS_score column; Group=give column header for Group/Pheno
 dev.off()
